@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.border-divider {
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+
+.iconoCarita{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 10%;
+  width: 35px;
+  height: 35px;
+}
+@media (max-width: 300px) { 
+  .lg:flex-row {
+    flex-direction: column;
+  }
+}
+
+.iconoPalomita{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url('../public/imagenes/palomita.png');
+  width: 20px;
+  height: 20px;
+}
+
+.iconoPalomitaMal{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url('../public/imagenes/equis.png');
+  width: 20px;
+  height: 20px;
+}
+.chrome-picker .flexbox-fix .saturation-container .saturation {
+  border-radius: 50%;
+  border: 2px solid #fff; 
+  box-shadow: 0 0 3px rgba(0,0,0,0.5); 
+}
