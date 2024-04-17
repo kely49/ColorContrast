@@ -13,14 +13,11 @@ const MenuConfig: React.FC<MenuConfigProps> = ({ onColorChange }) => {
     const [largeAA, setAccesibilityRatingAALargeText] = useState(true);
     const [smalAAA, setAccesibilityRatingAAASmallText] = useState(true);
     const [largeAAA, setAccesibilityRatingAAALargeText] = useState(true);
-
-    const [suggestedColors, setSuggestedColors] = useState([]);
     
     const [currentColorPair, setCurrentColorPair] = useState({
         fondo: "#FDFBF6",
         texto: "#242422",
       });
-      const [copiedColor, setCopiedColor] = useState(null);
     
       const handleColorChange = (colorFondo: string, colorTexto: string) => {
         setCurrentColorPair({
@@ -127,11 +124,6 @@ const MenuConfig: React.FC<MenuConfigProps> = ({ onColorChange }) => {
                 <div className='mb-8 text-lg font-semibold'>Colores de entrada</div>
                 <ColorPicker onColorChange={handleColorChange}/>
             </section>
-            {copiedColor && (
-                <div className="fixed left-20 transform -translate-x-1/2 bottom-0 bg-green-500 text-white p-2 rounded-md">
-                Color copiado
-                </div>
-            )}
             <div className="border-divider"></div>
           </aside>
     );

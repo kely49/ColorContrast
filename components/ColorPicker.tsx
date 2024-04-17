@@ -17,6 +17,10 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
   const [fondoColor, setFondoColor] = useState("#FDFBF6");
   const [textoColor, setTextoColor] = useState("#242422");
 
+  const [copiarColorPrimario, setCopiarColorPrimario] = useState('/imagenes/copiar.png');
+  const [copiarColorSecundario, setCopiarColorSecundario] = useState('/imagenes/copiar.png');
+
+
 
   const handleChange = (color: string, type: string) => {   
     if (type === 'fondo') {
@@ -69,6 +73,20 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
     onColorChange(textoColor, fondoColor);
   };
 
+  const handleCopyColorImagenes = (color: string, type: string) => {
+    handleCopyColor(color);
+    if (type === 'primario') {
+      setCopiarColorPrimario('/imagenes/palomitaNegra.png');
+      setTimeout(() => {
+        setCopiarColorPrimario('/imagenes/copiar.png');
+      }, 2000);
+    } else {
+      setCopiarColorSecundario('/imagenes/palomitaNegra.png');
+      setTimeout(() => {
+        setCopiarColorSecundario('/imagenes/copiar.png');
+      }, 2000);
+    }
+  };
 
   return (
     <>
@@ -88,10 +106,10 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
             onClick={() => setshowPickerFondo(!showPickerFondo)}
           />
           <img
-              src='/imagenes/copiar.png'
+              src={copiarColorPrimario}
               alt="Copiar color"
               className="w-5 h-5 cursor-pointer mt-2"
-              onClick={() => handleCopyColor(fondoColor )}
+              onClick={() => handleCopyColorImagenes(fondoColor,'primario')}
           />
         </div>
       </div>
@@ -121,10 +139,10 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
             onClick={() => setshowPickerTexto(!showPickerTexto)}
           />
           <img
-              src='/imagenes/copiar.png'
+              src={copiarColorSecundario}
               alt="Copiar color"
               className="w-5 h-5 cursor-pointer mt-2"
-              onClick={() => handleCopyColor(textoColor)}
+              onClick={() => handleCopyColorImagenes(textoColor,'secundario')}
           />
         </div>
       </div>
