@@ -150,7 +150,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
       {showPickerFondo && (
         <div
             ref={pickerRefFondo}
-            className="absolute"
+            className="absolute  z-10"
             style={{
               top: (buttonRefFondo.current?.offsetTop ?? 0) + (buttonRefFondo.current?.offsetHeight ?? 0),
               left: buttonRefFondo.current?.offsetLeft
@@ -168,7 +168,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
         {showPickerTexto && (
         <div
             ref={pickerRefTexto}
-            className="absolute"
+            className="absolute  z-10"
             style={{
             top: (buttonRefFondo.current?.offsetTop ?? 0) + (buttonRefFondo.current?.offsetHeight ?? 0),
             left: buttonRefTexto.current?.offsetLeft
@@ -178,7 +178,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
             <ChromePicker
             color={textoColor}
             onChange={(color) => handleChange(color.hex, 'texto')}
-            className="chrome-picker"
+            className="chrome-picker "
             disableAlpha
             />
         </div>
