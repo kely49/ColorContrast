@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { mix } from 'polished';
 
-const Ejemplos = ({ currentColorFondo, currentColorTexto  }) => {
+interface EjemplosProps {
+    currentColorFondo: string;
+    currentColorTexto: string;
+}
+
+const Ejemplos: React.FC<EjemplosProps> = ({ currentColorFondo, currentColorTexto }) => {
     
-    const handleLighterColor = (color,mezcla) => {
+    const handleLighterColor = (color: string,mezcla:string) => {
         return mix(0.85, mezcla, color); 
     };
 

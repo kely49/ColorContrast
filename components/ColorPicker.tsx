@@ -1,23 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChromePicker } from 'react-color';
+import { ChromePicker  } from 'react-color';
 
-const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
+interface ColorPickerProps {
+  onColorChange: (fondoColor: string, textoColor: string) => void;
+}
+
+const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
   const [showPickerFondo, setshowPickerFondo] = useState(false);
-  const buttonRefFondo = useRef(null);
-  const pickerRefFondo = useRef(null);
+  const buttonRefFondo = useRef<HTMLImageElement>(null);
+  const pickerRefFondo = useRef<HTMLDivElement>(null);
 
-  const [showPickerTexto, setshowPickerTexto] = useState(false);
-  const buttonRefTexto = useRef(null);
-  const pickerRefTexto = useRef(null);
+  const [showPickerTexto, setshowPickerTexto ] = useState(false);
+  const buttonRefTexto = useRef<HTMLImageElement>(null);
+  const pickerRefTexto = useRef<HTMLDivElement>(null);
 
   const [fondoColor, setFondoColor] = useState("#FDFBF6");
   const [textoColor, setTextoColor] = useState("#242422");
-  const [selectedColor, setSelectedColor] = useState('#FDFBF6');
 
 
-  const handleChange = (color, type) => {
+  const handleChange = (color: string, type: string) => {   
     if (type === 'fondo') {
       setFondoColor(color);
+      console.log("textoColor: "+textoColor);
+      console.log("color: "+color);
       onColorChange(color, textoColor);
     } else {
       setTextoColor(color);
@@ -26,8 +31,8 @@ const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
   };
 
   useEffect(() => {
-    const handleClickFueraFondo = (event) => {
-      if (pickerRefFondo.current && !pickerRefFondo.current.contains(event.target) && !buttonRefFondo.current.contains(event.target)) {
+    const handleClickFueraFondo = (event: MouseEvent) => {
+      if (pickerRefFondo.current && !pickerRefFondo.current.contains(event.target as Node) && !buttonRefFondo.current?.contains(event.target as Node)) {
         setshowPickerFondo(false);
       }
     };
@@ -41,8 +46,8 @@ const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
 
 
   useEffect(() => {
-    const handleClickFueraTexto = (event) => {
-      if (pickerRefTexto.current && !pickerRefTexto.current.contains(event.target) && !buttonRefTexto.current.contains(event.target)) {
+    const handleClickFueraTexto = (event: MouseEvent) => {
+      if (pickerRefTexto.current && !pickerRefTexto.current.contains(event.target as Node) && !buttonRefTexto.current?.contains(event.target as Node)) {
         setshowPickerTexto(false);
       }
     };
@@ -54,9 +59,8 @@ const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
     };
   }, []); 
 
-  const handleCopyColor = (color) => {
+  const handleCopyColor = (color: string) => {
     navigator.clipboard.writeText(color);
-    onColorCopy(selectedColor);
   };
 
   const handleSwapColors = () => {
@@ -130,8 +134,8 @@ const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
             ref={pickerRefFondo}
             className="absolute"
             style={{
-            top: buttonRefFondo.current.offsetTop + buttonRefFondo.current.offsetHeight,
-            left: buttonRefFondo.current.offsetLeft
+              top: (buttonRefFondo.current?.offsetTop ?? 0) + (buttonRefFondo.current?.offsetHeight ?? 0),
+              left: buttonRefFondo.current?.offsetLeft
             }}
             onMouseDown={(e) => e.stopPropagation()}
         >
@@ -148,8 +152,8 @@ const ColorPicker = ({ onColorChange, onColorCopy  } ) => {
             ref={pickerRefTexto}
             className="absolute"
             style={{
-            top: buttonRefTexto.current.offsetTop + buttonRefTexto.current.offsetHeight,
-            left: buttonRefTexto.current.offsetLeft
+            top: (buttonRefFondo.current?.offsetTop ?? 0) + (buttonRefFondo.current?.offsetHeight ?? 0),
+            left: buttonRefTexto.current?.offsetLeft
             }}
             onMouseDown={(e) => e.stopPropagation()}
         >

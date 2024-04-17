@@ -2,13 +2,17 @@ import React, { useEffect,useState } from 'react';
 import ColorPicker from '../components/ColorPicker';
 import { contrastRatio,accesibilityRatingAASmallText,accesibilityRatingAAASmallText,accesibilityRatingAALargeText,accesibilityRatingAAALargeText } from '../pages/api/IAContraste';
 
-const MenuConfig: React.FC = ({onColorChange}) => {
+interface MenuConfigProps {
+    onColorChange: (colorFondo: string, colorTexto: string) => void;
+  }
+
+const MenuConfig: React.FC<MenuConfigProps> = ({ onColorChange }) => {
     const [contrastePredicho, setContrastePredicho] = useState(7.3);
 
-    const [smalAA, setAccesibilityRatingAASmallText] = useState(7.3);
-    const [largeAA, setAccesibilityRatingAALargeText] = useState(7.3);
-    const [smalAAA, setAccesibilityRatingAAASmallText] = useState(7.3);
-    const [largeAAA, setAccesibilityRatingAAALargeText] = useState(7.3);
+    const [smalAA, setAccesibilityRatingAASmallText] = useState(true);
+    const [largeAA, setAccesibilityRatingAALargeText] = useState(true);
+    const [smalAAA, setAccesibilityRatingAAASmallText] = useState(true);
+    const [largeAAA, setAccesibilityRatingAAALargeText] = useState(true);
 
     const [suggestedColors, setSuggestedColors] = useState([]);
     
@@ -18,7 +22,7 @@ const MenuConfig: React.FC = ({onColorChange}) => {
       });
       const [copiedColor, setCopiedColor] = useState(null);
     
-      const handleColorChange = (colorFondo, colorTexto) => {
+      const handleColorChange = (colorFondo: string, colorTexto: string) => {
         setCurrentColorPair({
           fondo: colorFondo,
           texto: colorTexto,
@@ -39,9 +43,9 @@ const MenuConfig: React.FC = ({onColorChange}) => {
         const contrasteRedondeado = Number(contraste.toFixed(2));
         setContrastePredicho(contrasteRedondeado);
 
-        const contrastValue = document.getElementById('contrastValue');
-        const iconoCarita = document.getElementById('iconoCarita');
-        const puntuacion = document.getElementById('puntuacion');
+        const contrastValue = document.getElementById('contrastValue')!;
+        const iconoCarita = document.getElementById('iconoCarita') as HTMLImageElement;
+        const puntuacion = document.getElementById('puntuacion')!;
 
         if (contrasteRedondeado < 4.45) {
             contrastValue.style.color = 'red';
@@ -72,15 +76,6 @@ const MenuConfig: React.FC = ({onColorChange}) => {
         onColorChange(colorFondo, colorTexto);
     }, []); 
 
-    const handleCopyColor = (color) => {
-        console.log("copiedcolor"+copiedColor);
-        setCopiedColor(color);
-        console.log("copiedcolor"+copiedColor);
-        setTimeout(() => {
-          setCopiedColor(null);
-        }, 2000);
-      };
-
     return(
         <aside className="w-full h-full flex flex-col gap-6 border-r border-gray-400 px-5 py-5 lg:min-w-80 overflow-y-auto">
             <section>
@@ -91,7 +86,7 @@ const MenuConfig: React.FC = ({onColorChange}) => {
                         <span id="puntuacion" className='font-semibold'>Very good</span>
                         <span id="contrastValue" className="text-6xl font-bold" >{contrastePredicho}</span>
                     </div>
-                        <img id="iconoCarita" viewBox="0 0 24 24" src="/imagenes/caritaVerde.png" className='iconoCarita'/>
+                        <img id="iconoCarita" src="/imagenes/caritaVerde.png" className='iconoCarita' />
                     </div>
                     <ul className="flex flex-wrap mt-10 ">
                         <li className='mb-5 mr-10 '>
@@ -130,7 +125,7 @@ const MenuConfig: React.FC = ({onColorChange}) => {
             <div className="border-divider"></div>
             <section>
                 <div className='mb-8 text-lg font-semibold'>Colores de entrada</div>
-                <ColorPicker onColorChange={handleColorChange} onColorCopy={handleCopyColor}/>
+                <ColorPicker onColorChange={handleColorChange}/>
             </section>
             {copiedColor && (
                 <div className="fixed left-20 transform -translate-x-1/2 bottom-0 bg-green-500 text-white p-2 rounded-md">
