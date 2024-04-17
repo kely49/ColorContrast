@@ -38,8 +38,3 @@
   width: 20px;
   height: 20px;
 }
-.chrome-picker .flexbox-fix .saturation-container .saturation {
-  border-radius: 50%;
-  border: 2px solid #fff; 
-  box-shadow: 0 0 3px rgba(0,0,0,0.5); 
-}

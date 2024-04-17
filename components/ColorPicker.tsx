@@ -88,6 +88,22 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
     }
   };
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+    const color = e.target.value;
+    if (/^#[0-9A-F]{6}$/i.test(color) || color === "") {
+      if (type === 'fondo') {
+        setFondoColor(color);
+        onColorChange(color, textoColor);
+      } else {
+        setTextoColor(color);
+        onColorChange(fondoColor, color);
+      }
+    } else {
+      // Puedes mostrar un mensaje en pantalla, por ejemplo:
+      alert("El color ingresado no es un formato hexadecimal válido. solo puede PEGAR un color Hexadecimal");
+    }
+  };
+
   return (
     <>
       <div className="flex items-center">
@@ -95,7 +111,11 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
 
         <div className="flex flex-col items-start">
           <span className='text-gray-600 text-sm font-semibold'>Color de fondo</span>
-          <span className='ml-1 font-bold text-2xl'>{fondoColor }</span>
+          <input
+              className='ml-1 font-bold text-2xl max-w-32' 
+              value={fondoColor}
+              onChange={(e) => handleTextChange(e, 'fondo')}
+            />
         </div>
         <div className="ml-auto">
           <img
@@ -128,7 +148,11 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onColorChange }) => {
 
         <div className="flex flex-col items-start">
           <span className='text-gray-600 text-sm font-semibold'>Color de texto</span>
-          <span className='ml-1 font-bold text-2xl'>{textoColor}</span>
+          <input
+              className='ml-1 font-bold text-2xl max-w-32' 
+              value={textoColor}
+              onChange={(e) => handleTextChange(e, 'texto')}
+            />
         </div>
         <div className="ml-auto">
           <img
